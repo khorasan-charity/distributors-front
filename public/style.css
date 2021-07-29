@@ -1,0 +1,17 @@
+@font-face {
+  font-family: Shabnam;
+  src: url("./fonts/Shabnam.ttf") format("truetype");
+}
+
+* {
+  font-family: "Shabnam";
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Shabnam";
+}
