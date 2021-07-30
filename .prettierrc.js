@@ -1,14 +1,14 @@
 module.exports = {
   singleQuote: false,
-  trailingComma: 'none',
+  trailingComma: "none",
   overrides: [
     {
-      files: '*.hbs',
+      files: "*.hbs",
       options: {
         singleQuote: false
       }
     }
   ],
-  printWidth: 85,
+  printWidth: 120,
   semi: true
-}
+};

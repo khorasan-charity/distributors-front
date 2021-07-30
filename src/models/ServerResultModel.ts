@@ -1,4 +1,4 @@
-export interface GridResultModel<T extends object> {
+export interface GeneralResultModel<T extends object> {
   result: Result<T>;
   success: boolean;
   error: boolean | null;
@@ -14,9 +14,8 @@ export interface Result<T extends object> {
   items: T[];
 }
 
-export interface GridHeaderModel {
-  text: string;
-  value: string;
-  align?: string;
-  sortable?: boolean;
+export interface DeleteResultModel {
+  result: boolean;
+  success: boolean;
+  error: boolean | null;
 }

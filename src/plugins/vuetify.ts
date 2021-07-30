@@ -4,7 +4,13 @@ import "vuetify/dist/vuetify.min.css";
 
 Vue.use(Vuetify);
 
+import { fa } from "vuetify/src/locale";
+
 export default new Vuetify({
+  lang: {
+    locales: { fa },
+    current: "fa"
+  },
   rtl: true,
   theme: {
     themes: {
@@ -15,8 +21,8 @@ export default new Vuetify({
         error: "#FF5252",
         info: "#2196F3",
         success: "#4CAF50",
-        warning: "#FFC107",
-      },
-    },
-  },
+        warning: "#FFC107"
+      }
+    }
+  }
 });
