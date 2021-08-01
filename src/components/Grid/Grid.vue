@@ -49,12 +49,15 @@ import { distributorGridHeaders } from "@/constants/GridHeader";
 import { ContextMenuItemModel } from "@/models/ContextMenuModel";
 import DeleteDialog from "@/components/Dialogs/DeleteDialog.vue";
 import DistributorService from "@/services/Distributor/DistributorService";
+import { GridCommand } from "@/enums/GridCommand";
+import { BehaviorSubject, Subscription } from "rxjs";
 
 @Component({ name: "Grid", components: { DeleteDialog } })
 export default class Grid extends Vue {
   @Prop({ required: true }) tableTitle?: string;
   @Prop({ required: true }) apiUrl?: string;
   @Prop({ required: true }) rowModelStringName?: GridRowModelName;
+  @Prop({ required: true }) gridCommandController!: BehaviorSubject<GridCommand>;
   gridService?: GridService;
   distributorService?: DistributorService;
   headers: GridHeaderModel[] = [];
@@ -78,6 +81,7 @@ export default class Grid extends Vue {
   ];
   toRemoveId: number = 0;
   isRemoveButtonLoading: boolean = false;
+  unsubscribeList: Subscription[] = [];
 
   constructor() {
     super();
@@ -112,6 +116,7 @@ export default class Grid extends Vue {
   }
 
   async mounted() {
+    console.log("Ali");
     switch (this.rowModelStringName) {
       case GridRowModelName.DistributorModel:
         this.headers = distributorGridHeaders;
@@ -119,7 +124,21 @@ export default class Grid extends Vue {
       default:
         break;
     }
-    await this.fetch();
+    const gridCommandSub = this.gridCommandController?.subscribe(val => {
+      switch (val) {
+        case GridCommand.REFRESH:
+          this.fetch();
+          break;
+        case GridCommand.NOP:
+          break;
+      }
+    });
+    this.unsubscribeList = [...this.unsubscribeList, gridCommandSub];
+  }
+
+  unmounted() {
+    console.log("Grid unmounted");
+    for (let u of this.unsubscribeList) u.unsubscribe();
   }
 
   handleClick(data: DistributorGridResultItemsModel) {
@@ -152,7 +171,7 @@ export default class Grid extends Vue {
       this.$refs.deleteDialog.closeDialog();
       this.isRemoveButtonLoading = false;
       this.toRemoveId = 0;
-      this.fetch();
+      this.gridCommandController?.next(GridCommand.REFRESH);
     } else {
       // snack service error
       this.isRemoveButtonLoading = false;
@@ -179,12 +198,12 @@ export default class Grid extends Vue {
 
   @Watch("itemsPerPage")
   async onItemsPerPageChange(value: number, oldValue: number) {
-    await this.fetch();
+    this.gridCommandController?.next(GridCommand.REFRESH);
   }
 
   @Watch("page")
   async onPageChange(value: number, oldValue: number) {
-    await this.fetch();
+    this.gridCommandController?.next(GridCommand.REFRESH);
   }
 }
 </script>

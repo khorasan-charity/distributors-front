@@ -54,10 +54,6 @@ export default class DeleteDialog extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.v-card__title.text-h5 {
-  font-family: "Shabnam" !important;
-}
-
 .delete-dialog__text {
   margin-top: 20px;
 }

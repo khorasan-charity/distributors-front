@@ -1,10 +1,10 @@
-export interface GeneralResultModel<T extends object> {
+export interface GeneralResultModel<T> {
   result: Result<T>;
   success: boolean;
   error: boolean | null;
 }
 
-export interface Result<T extends object> {
+export interface Result<T> {
   pageNo: number;
   pageSize: number;
   totalCount: number;

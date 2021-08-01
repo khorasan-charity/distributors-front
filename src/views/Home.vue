@@ -1,4 +1,8 @@
-<template> </template>
+<template>
+  <v-btn @click="$router.push({ name: 'Distributors' })">
+    موزعین
+  </v-btn>
+</template>
 
 <script lang="ts">
 import Vue from "vue";

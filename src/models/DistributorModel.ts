@@ -1,9 +1,3 @@
-export interface AddDistributorRequestModel {}
-
-export interface EditDistributorRequestModel extends AddDistributorRequestModel {
-  id: string;
-}
-
 export interface DistributorGridResultItemsModel {
   id: number;
   firstName: string;
@@ -14,4 +8,14 @@ export interface DistributorGridResultItemsModel {
   avatarUrl: null;
   description: string;
   createdAt: string;
+}
+
+export interface AddDistributorRequestModel {
+  firstName: string;
+  lastName: string;
+  nationalId: string;
+  mobileNumber: string;
+  password: string;
+  avatarUrl: string | null;
+  description: string | null;
 }

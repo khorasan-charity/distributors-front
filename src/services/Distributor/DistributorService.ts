@@ -1,10 +1,13 @@
-import { DeleteResultModel } from "@/models/ServerResultModel";
+import { AddDistributorRequestModel } from "@/models/DistributorModel";
+import { DeleteResultModel, GeneralResultModel } from "@/models/ServerResultModel";
 import BaseService from "../BaseService";
 
 export default class DistributorService extends BaseService {
   private readonly url = "/Distributor";
 
-  add(): void {}
+  async add(request: AddDistributorRequestModel): Promise<GeneralResultModel<boolean>> {
+    return await this.postRequest(this.url, request);
+  }
 
   async delete(id: number): Promise<DeleteResultModel> {
     return await this.deleteRequest(`${this.url}/${id}`);

@@ -21,3 +21,9 @@ export default Vue.extend({
   })
 });
 </script>
+
+<style lang="scss">
+.v-card__title.text-h5 {
+  font-family: "Shabnam" !important;
+}
+</style>
